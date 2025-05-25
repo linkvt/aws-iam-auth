@@ -1,0 +1,12 @@
+version: "2"
+linters:
+  default: all
+  disable:
+    - depguard
+    - tagalign
+formatters:
+  enable:
+    - gofumpt
+    - golines
+run:
+  tests: true
