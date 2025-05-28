@@ -31,11 +31,13 @@ func (c *Cmd) Run(ctx context.Context) error {
 		return err
 	}
 
-	fmt.Println(token)
-
 	if c.Test {
-		svc.TestToken(ctx, token, c.GenerateTokenArgs, c.TestTokenArgs)
+		if ok := svc.TestToken(ctx, token, c.GenerateTokenArgs, c.TestTokenArgs); !ok {
+			return fmt.Errorf("token verification failed")
+		}
 	}
+
+	fmt.Println(token)
 
 	return nil
 }
