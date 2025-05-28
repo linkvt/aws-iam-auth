@@ -49,7 +49,7 @@ func (s *Service) TestToken(
 	token string,
 	tokenArgs GenerateTokenArgs,
 	testArgs TestTokenArgs,
-) {
+) bool {
 	logger := slog.With(
 		slog.String("host", tokenArgs.CacheName),
 		slog.String("username", tokenArgs.Username),
@@ -74,8 +74,9 @@ func (s *Service) TestToken(
 
 	if err := client.Ping(ctx).Err(); err != nil {
 		logger.Info(fmt.Sprintf("Failed to authenticate with token: %v", err))
-		return
+		return false
 	}
 
 	logger.Info(("Successfully authenticated with token"))
+	return true
 }
